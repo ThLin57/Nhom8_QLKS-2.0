@@ -1,0 +1,12 @@
+{
+  "KhachHang": [
+    {
+      "TenKhachHang": "Thanh Luan",
+      "SoPhong": "P102"
+    },
+    {
+      "TenKhachHang": "Anh Khoa",
+      "SoPhong": "P103"
+    }
+  ]
+}

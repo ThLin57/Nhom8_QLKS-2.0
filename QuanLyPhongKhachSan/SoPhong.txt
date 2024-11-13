@@ -1,0 +1,101 @@
+create table HangPhong
+(
+	ID_HP			int	primary key	identity(1,1),
+	HangPhong		nvarchar(50) not null,
+	Gia				float not null,
+	GiaGio			float not null,
+	DienTich		float not null,
+	DonViDT			nvarchar not null,
+	SucChuaToiDa	nvarchar(1000) not null,
+	GhiChu			nvarchar(3000),
+	KhaDung			tinyint not null
+)
+go
+
+create table Tang
+(
+	ID_Tang		int	primary key	identity(1,1),
+	Tang		nvarchar(50) not null,
+	KhaDung		tinyint not null
+)
+go
+
+create table Phong
+(
+	ID_Phong	int	primary key	identity(1,1),
+	SoPhong		nvarchar(5)	not null,
+	ID_HP		int references HangPhong(ID_HP)	not null,
+	ID_Tang		int references Tang(ID_Tang) not null,
+	MoTa		nvarchar(500),
+	TrangThai	tinyint	not null,
+	GhiChu		nvarchar(3000),
+	KhaDung		tinyint	not null
+)
+go
+------------------ThemTang---------------------------------
+INSERT INTO Tang (Tang, KhaDung) VALUES (N'Tầng 1', 1);
+INSERT INTO Tang (Tang, KhaDung) VALUES (N'Tầng 2', 1);
+INSERT INTO Tang (Tang, KhaDung) VALUES (N'Tầng 3', 1);
+INSERT INTO Tang (Tang, KhaDung) VALUES (N'Tầng 4', 1);
+select * from Tang
+------------------ThemHangPhong---------------------------------
+INSERT INTO HangPhong (HangPhong, Gia, GiaGio, DienTich, DonViDT, SucChuaToiDa, GhiChu, KhaDung) 
+VALUES (N'Phòng đôi', 1000000, 200000, 25, N'm', N'2 người', N'Phòng đôi', 1);
+
+INSERT INTO HangPhong (HangPhong, Gia, GiaGio, DienTich, DonViDT, SucChuaToiDa, GhiChu, KhaDung) 
+VALUES (N'Phòng đơn', 800000, 150000, 20, N'm', N'1 người', N'Phòng đơn', 1);
+select * from HangPhong
+------------------ThemPhong---------------------------------
+INSERT INTO Phong (SoPhong, ID_HP, ID_Tang, MoTa, TrangThai, GhiChu, KhaDung) VALUES
+('101', 5, 1, N'Phòng Standard, view thành phố', 1, N'Phòng có 1 giường đôi', 1),
+('102', 5, 1, N'Phòng Standard, view biển', 1, N'Phòng có 2 giường đơn', 1),
+('201', 5, 2, N'Phòng Deluxe, view hồ bơi', 1, N'Phòng rộng, có ban công', 1),
+('202', 5, 2, N'Phòng Deluxe, phòng rộng', 1, N'Có sofa và TV lớn', 1),
+('301', 5, 3, N'Phòng Suite, với bể bơi riêng', 0, N'Phòng đang được sửa chữa', 1),
+('302', 6, 3, N'Phòng Suite, có view núi', 1, N'Phòng có bể sục riêng', 1),
+('401', 6, 4, N'Phòng Economy, giá rẻ', 1, N'Phòng có giường đôi', 1),
+('402', 6, 4, N'Phòng Economy, tiện nghi cơ bản', 1, N'Phòng nhỏ, sạch sẽ', 1),
+('501', 6, 4, N'Phòng Standard, view sân vườn', 1, N'Phòng có 2 giường đôi', 1),
+('502', 6, 4, N'Phòng Deluxe, có view biển', 1, N'Phòng sang trọng, tiện nghi đầy đủ', 1);
+INSERT INTO Phong (SoPhong, ID_HP, ID_Tang, MoTa, TrangThai, GhiChu, KhaDung) VALUES
+('105', 5, 1, N'Phòng Standard, view biển', 1, N'Phòng có giường đôi, cửa sổ lớn', 1),
+('106', 5, 1, N'Phòng Standard, view thành phố', 1, N'Phòng có 2 giường đơn, ban công', 1),
+('107', 5, 1, N'Phòng Standard, với ban công', 1, N'Phòng có cửa sổ lớn và 1 giường đôi', 1),
+('108', 5, 1, N'Phòng Standard, phòng sạch', 1, N'Phòng có giường đơn, tiện nghi đầy đủ', 1),
+('109', 5, 1, N'Phòng Standard, giá rẻ', 1, N'Phòng nhỏ, tiện nghi cơ bản', 1),
+('201', 5, 2, N'Phòng Deluxe, có bồn tắm', 1, N'Phòng có view biển, bồn tắm sang trọng', 1),
+('202', 5, 2, N'Phòng Deluxe, có ban công', 1, N'Phòng có giường đôi lớn, view đẹp', 1),
+('203', 5, 2, N'Phòng Deluxe, rộng rãi', 1, N'Phòng có sofa, TV màn hình phẳng', 1),
+('204', 5, 2, N'Phòng Deluxe, view hồ bơi', 1, N'Phòng rộng với ban công riêng', 1),
+('205', 5, 2, N'Phòng Deluxe, với giường King', 1, N'Phòng có giường King-size, tiện nghi hiện đại', 1),
+
+-- Thêm vào tầng 3
+('301', 6, 3, N'Phòng Suite, có bể sục riêng', 1, N'Phòng có khu vực phòng khách riêng, bể sục', 1),
+('302', 6, 3, N'Phòng Suite, với view núi', 1, N'Phòng có phòng tắm lớn và bồn tắm jacuzzi', 1),
+('303', 6, 3, N'Phòng Suite, gần hồ bơi', 1, N'Phòng có cửa sổ rộng nhìn ra hồ bơi', 1),
+('304', 6, 3, N'Phòng Suite, phòng khách riêng', 1, N'Phòng có sofa lớn, TV màn hình lớn', 1),
+('305', 6, 3, N'Phòng Suite, view thành phố', 1, N'Phòng rộng rãi, có bể sục', 1),
+
+-- Thêm vào tầng 4
+('401', 6, 4, N'Phòng Economy, giá rẻ', 1, N'Phòng có giường đơn, sạch sẽ', 1),
+('402', 6, 4, N'Phòng Economy, tiện nghi cơ bản', 1, N'Phòng có giường đôi, nhỏ nhưng đầy đủ', 1),
+('403', 6, 4, N'Phòng Economy, gọn gàng', 1, N'Phòng có bàn làm việc, giường đơn', 1),
+('404', 6, 4, N'Phòng Economy, giá hợp lý', 1, N'Phòng có giường đôi, sạch sẽ', 1),
+('405', 6, 4, N'Phòng Economy, tiện nghi đầy đủ', 1, N'Phòng có giường đơn, không gian thoáng', 1);
+
+INSERT INTO Phong (SoPhong, ID_HP, ID_Tang, MoTa, TrangThai, GhiChu, KhaDung) VALUES
+('412', 6, 4, N'Phòng Economy, giá rẻ', 1, N'Phòng có giường đơn, sạch sẽ', 1),
+('414', 6, 4, N'Phòng Economy, tiện nghi cơ bản', 1, N'Phòng có giường đôi, nhỏ nhưng đầy đủ', 1),
+('415', 6, 4, N'Phòng Economy, gọn gàng', 1, N'Phòng có bàn làm việc, giường đơn', 1),
+('434', 6, 4, N'Phòng Economy, giá hợp lý', 1, N'Phòng có giường đôi, sạch sẽ', 1),
+('445', 6, 4, N'Phòng Economy, tiện nghi đầy đủ', 1, N'Phòng có giường đơn, không gian thoáng', 1);
+INSERT INTO Phong (SoPhong, ID_HP, ID_Tang, MoTa, TrangThai, GhiChu, KhaDung) VALUES
+('455', 6, 4, N'Phòng Economy, gọn gàng', 1, N'Phòng có bàn làm việc, giường đơn', 1),
+('444', 6, 4, N'Phòng Economy, giá hợp lý', 1, N'Phòng có giường đôi, sạch sẽ', 1),
+('425', 6, 4, N'Phòng Economy, tiện nghi đầy đủ', 1, N'Phòng có giường đơn, không gian thoáng', 1);
+select * from Phong
+  SELECT p.SoPhong, hp.HangPhong, t.Tang, p.MoTa, p.TrangThai, p.GhiChu 
+  FROM Phong p
+  JOIN HangPhong hp ON p.ID_HP = hp.ID_HP
+  JOIN Tang t ON p.ID_Tang = t.ID_Tang
+  WHERE p.KhaDung = 1
